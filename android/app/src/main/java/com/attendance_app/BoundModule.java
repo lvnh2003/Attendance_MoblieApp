@@ -6,13 +6,16 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.app.Activity;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 public class BoundModule extends ReactContextBaseJavaModule {
 
@@ -46,9 +49,11 @@ public class BoundModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void startService() {
+    public void startService(Callback callback) {
         Log.d("Start from React Native","Count");
+        callback.invoke(" CCCC");
         Intent intent = new Intent(getCurrentActivity(), MyBoundService.class);
+        // cái này để làm gì
         getCurrentActivity().bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
@@ -59,5 +64,11 @@ public class BoundModule extends ReactContextBaseJavaModule {
             getCurrentActivity().unbindService(serviceConnection);
             isServiceConnected = false;
         }
+    }
+    @ReactMethod
+    public void allowPermission()
+    {
+        Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+        getCurrentActivity().startActivity(intent);
     }
 }

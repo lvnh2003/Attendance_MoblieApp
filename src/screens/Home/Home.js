@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button, ActivityIndicator } from 'react-native';
 import { NativeModules } from 'react-native';
-const { BoundModule } = NativeModules;
+const { BoundModule, YoutubeDetector } = NativeModules;
 
 export default function Home() {
-    const [elapsedTime, setElapsedTime] = useState(0);
-    const [isTimerRunning, setIsTimerRunning] = useState(false);
-
     const startTime= ()=>{
-        BoundModule.startService();
+        BoundModule.startService((result) => {
+            console.log('Received result from Java:', result);
+        });
     }
     const stopTime = ()=>{
-        BoundModule.stopService();
+        BoundModule.allowPermission();
     }
 
     return (

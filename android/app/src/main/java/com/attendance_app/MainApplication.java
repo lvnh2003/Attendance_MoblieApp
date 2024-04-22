@@ -1,6 +1,9 @@
 package com.attendance_app;
 
 import android.app.Application;
+import android.content.Intent;
+import android.content.IntentFilter;
+
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
@@ -59,5 +62,7 @@ public class MainApplication extends Application implements ReactApplication {
       DefaultNewArchitectureEntryPoint.load();
     }
     ReactNativeFlipper.initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+      IntentFilter filter = new IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+      registerReceiver(new MyBroadCastReceiver(), filter);
   }
 }

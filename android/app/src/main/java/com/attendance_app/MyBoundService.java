@@ -26,6 +26,8 @@ public class MyBoundService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
+
+//        handleIntent(intent);
         return mBinder;
     }
     public  class MyBinder extends Binder{
@@ -65,5 +67,14 @@ public class MyBoundService extends Service {
             System.out.println("Counting stopped. Final count: " + count);
         }
     }
-
+    private void handleIntent(Intent intent) {
+        if (intent != null) {
+            // Xử lý intent ở đây
+            // Ví dụ: kiểm tra action của intent và thực hiện hành động tương ứng
+            String action = intent.getAction();
+            if (action != null && action.equals("ACTION_START_TIME")) {
+                startTime();
+            }
+        }
+    }
 }
